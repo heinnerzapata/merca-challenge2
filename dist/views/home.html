@@ -1,0 +1,86 @@
+<!--Home-->
+<section id="homeView">
+<!--fileLoadingSection-->
+  <section id="fileLoadingSection" class="green accent-3">
+    <div class="container">
+      <div class="row">
+        <div class="col s12 m8">
+          <form action="#">
+            <div class="file-field input-field">
+              <div class="btn lime accent-2 grey-text text-darken-3">
+                <span>Load coordinates</span>
+                <input id="file" type="file" ng-files="getTheFiles($files)" accept="text/csv, .csv , .dat">
+              </div>
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col s12 m2 center-align">
+          <button class="btn btn-submit lime accent-2 grey-text text-darken-3" ng-click="uploadFiles()">submit</button>
+        </div>
+      </div>
+    </div>
+  </section>
+<!--/fileLoadingSection-->
+<!--mapSection-->
+  <section id="mapSection">
+    <div class="">
+      <div class="row">
+        <div class="col s12">
+          <div id="map_div"></div>
+        </div>
+    </div>
+  </section>
+<!--/mapSection-->
+<!--resultsSection-->
+  <section id="resultsSection">
+    <div class="container">
+      <div class="row">
+        <div class="col s12 l6 ">
+
+            <h3  class="green-text text-accent-3">Points</h3>
+
+            <div class="row">
+              <div class="col s12">
+
+                <div class="row valign-wrapper">
+                  <div class="col s12">
+                    <h5  class="green-text text-accent-3" ng-if="pointsDistance.address2 && pointsDistance.address1">Distance : {{ pointsDistance.distance }}</h5>
+                  </div>
+                  <div class="col s12" ng-if="pointsDistance.address2 && pointsDistance.address1">
+                    <div class="btn lime accent-2 grey-text text-darken-3">
+                      <span ng-click="cleanMap()" >Clean</span>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="row">
+
+                  <div class="col s12 m6" ng-repeat="marker in markers">
+                    <div class="card-panel " ng-class="{selected : marker.selected}" >
+
+                      <div class="lblAddressFormated">{{ marker.adddressFormated }}</div>
+
+                    </div>
+                  </div>
+
+                </div>
+
+
+              </div>
+            </div>
+
+        </div>
+        <div class="col s12 l6">
+
+        </div>
+      </div>
+    </div>
+  </section>
+<!--/resultsSection-->
+
+
+<!--/Home-->
