@@ -35378,6 +35378,25 @@ angular.module('helloWorldApp')
 ]);
 
 angular.module('helloWorldApp')
+.service('models' , function(){
+  return {
+    markerModel : function (id,marker , selected , address , adddressFormated){
+      this.id = id;
+      this.marker = marker;
+      this.selected = selected;
+      this.address = address;
+      this.adddressFormated = adddressFormated;
+    },
+    points : function(address1,address2){
+      this.address1 = address1;
+      this.address2 = address2;
+      this.route = [];
+      this.distance = 0.0;
+    }
+  }
+});
+
+angular.module('helloWorldApp')
 .service('apiServices' , function($http, $q , appConfig){
 
   return {
@@ -35461,25 +35480,6 @@ angular.module('helloWorldApp')
       //getDistanceTwoPoints : 'http://localhost:3002/api/getDistanceTwoPoints'
       uploadFiles : 'https://merca-challenge-api2.azurewebsites.net/api/uploadFiles',
       getDistanceTwoPoints : 'https://merca-challenge-api2.azurewebsites.net/api/getDistanceTwoPoints'
-    }
-  }
-});
-
-angular.module('helloWorldApp')
-.service('models' , function(){
-  return {
-    markerModel : function (id,marker , selected , address , adddressFormated){
-      this.id = id;
-      this.marker = marker;
-      this.selected = selected;
-      this.address = address;
-      this.adddressFormated = adddressFormated;
-    },
-    points : function(address1,address2){
-      this.address1 = address1;
-      this.address2 = address2;
-      this.route = [];
-      this.distance = 0.0;
     }
   }
 });
