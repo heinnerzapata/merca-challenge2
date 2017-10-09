@@ -35196,21 +35196,21 @@ angular.module('helloWorldApp')
 
                 //for( i = 0; i < data.results.length; i++ ) {
                 var image = {
-                    url: "../images/star1.svg", // url
+                    url: "https://github.com/heinnerzapata/merca-challenge2/blob/gh-pages/images/star1.svg", // url
                     scaledSize: new google.maps.Size(50, 50), // scaled size
                     origin: new google.maps.Point(0,0), // origin
                     anchor: new google.maps.Point(0, 0) // anchor
                 };
 
                 var image2 = {
-                    url: "../images/star1.svg", // url
+                    url: "https://github.com/heinnerzapata/merca-challenge2/blob/gh-pages/images/star1.svg", // url
                     scaledSize: new google.maps.Size(55, 55), // scaled size
                     origin: new google.maps.Point(0,0), // origin
                     anchor: new google.maps.Point(0, 0) // anchor
                 };
 
                 var image3 = {
-                    url: "../images/star2.svg", // url
+                    url: "https://github.com/heinnerzapata/merca-challenge2/blob/gh-pages/images/star2.svg", // url
                     scaledSize: new google.maps.Size(55, 55), // scaled size
                     origin: new google.maps.Point(0,0), // origin
                     anchor: new google.maps.Point(0, 0) // anchor
