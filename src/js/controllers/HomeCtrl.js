@@ -1,17 +1,15 @@
 angular.module('helloWorldApp')
 .directive('ngFiles', ['$parse', function ($parse) {
-
             function fn_link(scope, element, attrs) {
                 var onChange = $parse(attrs.ngFiles);
                 element.on('change', function (event) {
                     onChange(scope, { $files: event.target.files });
                 });
             };
-
             return {
                 link: fn_link
             }
-        } ])
+} ])
 
 .controller('HomeCtrl' , [
   '$scope', 'apiServices' , 'appConfig' , 'models' ,
@@ -25,6 +23,7 @@ angular.module('helloWorldApp')
     $scope.pointsDistance = new models.points('','');
     $scope.flightPath;
     $scope.flightPlanCoordinates = [];
+    $scope.showMagicB = false;
 
     $scope.initMap = function() {
 
@@ -35,6 +34,10 @@ angular.module('helloWorldApp')
            zoom: 15
         });
       }
+    }
+
+    $scope.magicButton = function(){
+      alert('ok');
     }
 
     $scope.uploadFiles = function(){
@@ -149,7 +152,11 @@ angular.module('helloWorldApp')
                               else if($scope.pointsDistance.address1 != '' && $scope.pointsDistance.address2 == '' && $scope.pointsDistance.address1 != $scope.markers[j].address){
                                 $scope.pointsDistance.address2 = $scope.markers[j].address;
                                 $scope.getDistanceTwoPoints($scope.pointsDistance);
+                                $scope.showMagicB = false;
+                              }else if($scope.pointsDistance.address2 != ''){
+                                $scope.showMagicB = true;
                               }
+
                             }
                             else{
 /*

@@ -35143,126 +35143,17 @@ angular.module('helloWorldApp',[
 ]);
 
 angular.module('helloWorldApp')
-.service('models' , function(){
-  return {
-    markerModel : function (id,marker , selected , address , adddressFormated){
-      this.id = id;
-      this.marker = marker;
-      this.selected = selected;
-      this.address = address;
-      this.adddressFormated = adddressFormated;
-    },
-    points : function(address1,address2){
-      this.address1 = address1;
-      this.address2 = address2;
-      this.route = [];
-      this.distance = 0.0;
-    }
-  }
-});
-
-angular.module('helloWorldApp')
-.service('apiServices' , function($http, $q , appConfig){
-
-  return {
-    geolocationByAddresss : geolocationByAddresss,
-    uploadFiles : uploadFiles,
-    getDistanceTwoPoints : getDistanceTwoPoints
-  }
-
-  function uploadFiles(data){
-      console.log(data)
-    var request = {
-                    method: 'POST',
-                    url: appConfig.api.uploadFiles,
-                    data: data,
-                    headers: {
-                        'Content-Type': undefined
-                    }
-                };
-
-    var defered = $q.defer();
-    var promise = defered.promise;
-
-        $http(request)
-        .then(function (success){
-          defered.resolve(success);
-        },function (error){
-          defered.reject(error);
-        });
-
-        return promise;
-
-  }
-  function geolocationByAddresss(address){
-    //return data;
-
-    var request = {
-                    method: 'GET',
-                    url: appConfig.api.geolocationByAddresss + '/' + address
-                };
-
-    var defered = $q.defer();
-    var promise = defered.promise;
-
-        $http(request)
-              .then(function (success){
-                defered.resolve(success);
-              },function (error){
-                defered.reject(error);
-              });
-
-        return promise;
-        //return appConfig.api.geolocationByAddresss;
-  }
-  function getDistanceTwoPoints(address1,address2){
-    var request = {
-                    method: 'GET',
-                    url: appConfig.api.getDistanceTwoPoints + '/' + address1 + '/' + address2                    
-                };
-
-    var defered = $q.defer();
-    var promise = defered.promise;
-
-          $http(request)
-                .then(function (success){
-                  defered.resolve(success);
-                },function (error){
-                  defered.reject(error);
-                });
-
-    return promise;
-
-  }
-});
-
-angular.module('helloWorldApp')
-.service('appConfig' , function(){
-  return {
-    api : {
-      geolocationByAddresss : 'http://localhost:3002/api/geolocationByAddresss',
-      //uploadFiles : 'http://localhost:3002/api/uploadFiles',
-      //getDistanceTwoPoints : 'http://localhost:3002/api/getDistanceTwoPoints'
-      uploadFiles : 'https://merca-challenge-api2.azurewebsites.net/api/uploadFiles',
-      getDistanceTwoPoints : 'https://merca-challenge-api2.azurewebsites.net/api/getDistanceTwoPoints'
-    }
-  }
-});
-
-angular.module('helloWorldApp')
 .directive('ngFiles', ['$parse', function ($parse) {
-
             function fn_link(scope, element, attrs) {
                 var onChange = $parse(attrs.ngFiles);
                 element.on('change', function (event) {
                     onChange(scope, { $files: event.target.files });
                 });
             };
-
             return {
                 link: fn_link
             }
-        } ])
+} ])
 
 .controller('HomeCtrl' , [
   '$scope', 'apiServices' , 'appConfig' , 'models' ,
@@ -35276,6 +35167,7 @@ angular.module('helloWorldApp')
     $scope.pointsDistance = new models.points('','');
     $scope.flightPath;
     $scope.flightPlanCoordinates = [];
+    $scope.showMagicB = false;
 
     $scope.initMap = function() {
 
@@ -35286,6 +35178,10 @@ angular.module('helloWorldApp')
            zoom: 15
         });
       }
+    }
+
+    $scope.magicButton = function(){
+      alert('ok');
     }
 
     $scope.uploadFiles = function(){
@@ -35400,7 +35296,11 @@ angular.module('helloWorldApp')
                               else if($scope.pointsDistance.address1 != '' && $scope.pointsDistance.address2 == '' && $scope.pointsDistance.address1 != $scope.markers[j].address){
                                 $scope.pointsDistance.address2 = $scope.markers[j].address;
                                 $scope.getDistanceTwoPoints($scope.pointsDistance);
+                                $scope.showMagicB = false;
+                              }else if($scope.pointsDistance.address2 != ''){
+                                $scope.showMagicB = true;
                               }
+
                             }
                             else{
 /*
@@ -35497,3 +35397,110 @@ angular.module('helloWorldApp')
 
   }
 ]);
+
+angular.module('helloWorldApp')
+.service('models' , function(){
+  return {
+    markerModel : function (id,marker , selected , address , adddressFormated){
+      this.id = id;
+      this.marker = marker;
+      this.selected = selected;
+      this.address = address;
+      this.adddressFormated = adddressFormated;
+    },
+    points : function(address1,address2){
+      this.address1 = address1;
+      this.address2 = address2;
+      this.route = [];
+      this.distance = 0.0;
+    }
+  }
+});
+
+angular.module('helloWorldApp')
+.service('apiServices' , function($http, $q , appConfig){
+
+  return {
+    geolocationByAddresss : geolocationByAddresss,
+    uploadFiles : uploadFiles,
+    getDistanceTwoPoints : getDistanceTwoPoints
+  }
+
+  function uploadFiles(data){
+      console.log(data)
+    var request = {
+                    method: 'POST',
+                    url: appConfig.api.uploadFiles,
+                    data: data,
+                    headers: {
+                        'Content-Type': undefined
+                    }
+                };
+
+    var defered = $q.defer();
+    var promise = defered.promise;
+
+        $http(request)
+        .then(function (success){
+          defered.resolve(success);
+        },function (error){
+          defered.reject(error);
+        });
+
+        return promise;
+
+  }
+  function geolocationByAddresss(address){
+    //return data;
+
+    var request = {
+                    method: 'GET',
+                    url: appConfig.api.geolocationByAddresss + '/' + address
+                };
+
+    var defered = $q.defer();
+    var promise = defered.promise;
+
+        $http(request)
+              .then(function (success){
+                defered.resolve(success);
+              },function (error){
+                defered.reject(error);
+              });
+
+        return promise;
+        //return appConfig.api.geolocationByAddresss;
+  }
+  function getDistanceTwoPoints(address1,address2){
+    var request = {
+                    method: 'GET',
+                    url: appConfig.api.getDistanceTwoPoints + '/' + address1 + '/' + address2                    
+                };
+
+    var defered = $q.defer();
+    var promise = defered.promise;
+
+          $http(request)
+                .then(function (success){
+                  defered.resolve(success);
+                },function (error){
+                  defered.reject(error);
+                });
+
+    return promise;
+
+  }
+});
+
+angular.module('helloWorldApp')
+.service('appConfig' , function(){
+  return {
+    api : {
+      geolocationByAddresss : 'http://localhost:3002/api/geolocationByAddresss',
+      //uploadFiles : 'http://localhost:3002/api/uploadFiles',
+      //getDistanceTwoPoints : 'http://localhost:3002/api/getDistanceTwoPoints'
+      uploadFiles : 'https://merca-challenge-api2.azurewebsites.net/api/uploadFiles',
+      getDistanceTwoPoints : 'https://merca-challenge-api2.azurewebsites.net/api/getDistanceTwoPoints'
+    }
+  }
+});

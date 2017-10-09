@@ -47,8 +47,8 @@
   <section id="resultsSection">
     <div class="container">
       <div class="row">
-        <div class="col s12 l7 ">
-            <h3  class="green-text text-accent-3">Points</h3>
+        <div class="col s12 l8 ">
+            <h3  class="green-text text-accent-3" ng-if="markers.length > 0">Points</h3>
             <div class="row">
               <div class="col s12">
                 <div class="row valign-wrapper">
@@ -71,8 +71,15 @@
               </div>
             </div>
         </div>
-        <div class="col s12 l5">
-        </div>
+        <div class="col s12 l4">
+          <div class="row" ng-if="showMagicB">
+            <div class="col s12">
+              <h3  class="green-text text-accent-3">Magic button</h3>
+            </div>
+            <div class="col s12">
+              <button class="btn btn-submit lime accent-2 grey-text text-darken-3" ng-click="magicButton()">Magic button</button>
+            </div>
+          </div>
       </div>
     </div>
   </section>
