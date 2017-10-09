@@ -37,7 +37,11 @@ angular.module('helloWorldApp')
       }
     }
 
-    $scope.uploadFiles = function(){  
+    $scope.uploadFiles = function(){
+
+      document.getElementById('loading').classList.remove('hidden');
+
+      $scope.cleanMap();
 
       apiServices
             .uploadFiles($scope.formdata)
@@ -45,21 +49,21 @@ angular.module('helloWorldApp')
 
                 //for( i = 0; i < data.results.length; i++ ) {
                 var image = {
-                    url: "http://www.thewcs.org/graphics/Star.png", // url
+                    url: "../images/star1.svg", // url
                     scaledSize: new google.maps.Size(50, 50), // scaled size
                     origin: new google.maps.Point(0,0), // origin
                     anchor: new google.maps.Point(0, 0) // anchor
                 };
 
                 var image2 = {
-                    url: "http://demo.sc.chinaz.com/Files/pic/icons/3919/12.png", // url
+                    url: "../images/star1.svg", // url
                     scaledSize: new google.maps.Size(55, 55), // scaled size
                     origin: new google.maps.Point(0,0), // origin
                     anchor: new google.maps.Point(0, 0) // anchor
                 };
 
                 var image3 = {
-                    url: "http://www.red-stars.com/img/star-512.png", // url
+                    url: "../images/star2.svg", // url
                     scaledSize: new google.maps.Size(55, 55), // scaled size
                     origin: new google.maps.Point(0,0), // origin
                     anchor: new google.maps.Point(0, 0) // anchor
@@ -78,6 +82,7 @@ angular.module('helloWorldApp')
                          title: resu.data.formatted_address,
                          label: 'P' + (index + 1),
                          icon: image
+
                      });
 
                      $scope.markers.push(new models.markerModel(index + 1,marker,false,resu.data.location.lat + ',' + resu.data.location.lng , resu.data.formatted_address));
@@ -169,6 +174,10 @@ angular.module('helloWorldApp')
                      $scope.map.fitBounds($scope.bounds);
                  });
 
+
+                 document.getElementById('loading').classList.add('hidden');
+
+
             })
             .catch(function(err){
               console.log(err);
@@ -176,6 +185,8 @@ angular.module('helloWorldApp')
     }
 
     $scope.getDistanceTwoPoints = function(point){
+
+      document.getElementById('loading').classList.remove('hidden');
 
       apiServices
             .getDistanceTwoPoints(point.address1,point.address2)
@@ -204,6 +215,8 @@ angular.module('helloWorldApp')
 
               $scope.flightPath.setMap($scope.map);
 
+              document.getElementById('loading').classList.add('hidden');
+
             })
             .catch(function(err){
 
@@ -220,7 +233,8 @@ angular.module('helloWorldApp')
 
       $scope.pointsDistance = new models.points('','');
       $scope.flightPlanCoordinates = [];
-      $scope.flightPath.setMap(null);
+      if($scope.flightPath)
+       $scope.flightPath.setMap(null);
       $scope.initMap();
       $scope.markers = [];
 

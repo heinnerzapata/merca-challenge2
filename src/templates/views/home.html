@@ -17,7 +17,7 @@
             </div>
           </form>
         </div>
-        <div class="col s12 m2 center-align">
+        <div class="col s12 m4 center-align">
           <button class="btn btn-submit lime accent-2 grey-text text-darken-3" ng-click="uploadFiles()">submit</button>
         </div>
       </div>
@@ -30,6 +30,15 @@
       <div class="row">
         <div class="col s12">
           <div id="map_div"></div>
+          <div id="loading" class="valign-wrapper hidden">
+            <div class="container">
+              <div class="row">
+                <div class="col s12 center-align">
+                  <img id="imgLoading" src="images/loading.gif">
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
     </div>
   </section>
@@ -38,13 +47,10 @@
   <section id="resultsSection">
     <div class="container">
       <div class="row">
-        <div class="col s12 l6 ">
-
+        <div class="col s12 l7 ">
             <h3  class="green-text text-accent-3">Points</h3>
-
             <div class="row">
               <div class="col s12">
-
                 <div class="row valign-wrapper">
                   <div class="col s12">
                     <h5  class="green-text text-accent-3" ng-if="pointsDistance.address2 && pointsDistance.address1">Distance : {{ pointsDistance.distance }}</h5>
@@ -55,32 +61,20 @@
                     </div>
                   </div>
                 </div>
-
-
                 <div class="row">
-
                   <div class="col s12 m6" ng-repeat="marker in markers">
                     <div class="card-panel " ng-class="{selected : marker.selected}" >
-
                       <div class="lblAddressFormated">{{ marker.adddressFormated }}</div>
-
                     </div>
                   </div>
-
                 </div>
-
-
               </div>
             </div>
-
         </div>
-        <div class="col s12 l6">
-
+        <div class="col s12 l5">
         </div>
       </div>
     </div>
   </section>
 <!--/resultsSection-->
-
-
 <!--/Home-->
